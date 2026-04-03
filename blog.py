@@ -21,16 +21,14 @@ except ImportError:
         USE_NEW_SDK = False
 
 # =====================================================================
-# 🚨 하이브리드 보안 세팅
+# 🚨 하이브리드 보안 세팅 (APP_PASSWORD 의존성 제거)
 # =====================================================================
 load_dotenv() 
 API_KEY = os.environ.get("GEMINI_API_KEY")
-APP_PASSWORD = os.environ.get("APP_PASSWORD")
 
-if not API_KEY or not APP_PASSWORD:
+if not API_KEY:
     try:
         API_KEY = st.secrets["GEMINI_API_KEY"]
-        APP_PASSWORD = st.secrets["APP_PASSWORD"]
     except Exception:
         st.error("❌ 환경에 보안 키가 물리적으로 존재하지 않습니다.")
         st.stop()
@@ -85,13 +83,13 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # =====================================================================
-# 보안 인증 시스템
+# 🚨 보안 인증 시스템 (0810 고정)
 # =====================================================================
 if "password_correct" not in st.session_state:
     st.title("🔒 대구상가맨 시스템 보안 인증")
     pwd_input = st.text_input("접근 비밀번호를 입력하십시오", type="password")
     if st.button("인증 가동"):
-        if pwd_input == APP_PASSWORD:
+        if pwd_input == "0810":
             st.session_state["password_correct"] = True
             st.rerun()
         else:
@@ -99,9 +97,9 @@ if "password_correct" not in st.session_state:
     st.stop()
 
 # =====================================================================
-# 메인 엔진 화면 v15.6
+# 메인 엔진 화면 v15.7
 # =====================================================================
-st.title("🚀 대구상가맨 SEO 풀오토 엔진 v15.6")
+st.title("🚀 대구상가맨 SEO 풀오토 엔진 v15.7")
 st.info("💡 핵심 주제 입력 불필요. 추가 키워드를 융합하여 제목과 20개의 해시태그까지 100% 자동 산출합니다.")
 
 st.subheader("1. 타겟팅 기본 설정")
