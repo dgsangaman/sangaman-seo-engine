@@ -235,12 +235,12 @@ if "password_correct" not in st.session_state:
 # ---------------------------------------------------------------------
 # 공통 헬퍼
 # ---------------------------------------------------------------------
-def show_result(result, success_msg="✅ 생성 완료. 결과창 우측 상단 복사 아이콘으로 가져가세요.", height=620, key=None):
+def show_result(result, success_msg="✅ 생성 완료. 결과창 우측 상단 복사 아이콘으로 가져가세요.", height=620):
     if isinstance(result, str) and result.startswith("❌"):
         st.error(result)
     else:
         st.success(success_msg)
-        st.text_area("출력 결과", value=result, height=height, key=key)
+        st.text_area("출력 결과", value=result, height=height)
 
 
 def opt(label, value):
@@ -404,13 +404,13 @@ def page_oneclick():
         idx = 0
         if res["diagnostic"]:
             with tabs[0]:
-                st.text_area("진단 리포트", value=res["diagnostic"], height=600, key="oc_out_diag")
+                st.text_area("진단 리포트", value=res["diagnostic"], height=600)
             idx = 1
         with tabs[idx]:
             if err:
                 st.error(res["campaign"])
             else:
-                st.text_area("옴니채널 캠페인 + 14일 배포 플랜", value=res["campaign"], height=760, key="oc_out_camp")
+                st.text_area("옴니채널 캠페인 + 14일 배포 플랜", value=res["campaign"], height=760)
 
 
 # =====================================================================
@@ -574,12 +574,12 @@ def page_xfile():
             st.success(f"✅ 권리금 X-파일 #{res['episode']} 캠페인 생성 완료 · 진단 + {len(res['channels'])}개 채널 + 14일 배포 플랜")
         t1, t2 = st.tabs(["🔬 권리금 정밀 진단 리포트", "📦 옴니채널 콘텐츠 캠페인"])
         with t1:
-            st.text_area("진단 리포트", value=res["diagnostic"], height=620, key="xf_out_diag")
+            st.text_area("진단 리포트", value=res["diagnostic"], height=620)
         with t2:
             if err:
                 st.error(res["campaign"])
             else:
-                st.text_area("옴니채널 캠페인 + 14일 배포 플랜", value=res["campaign"], height=740, key="xf_out_camp")
+                st.text_area("옴니채널 캠페인 + 14일 배포 플랜", value=res["campaign"], height=740)
 
 
 # =====================================================================
@@ -662,7 +662,7 @@ def page_blog():
 위 홍보 문구가 끝난 후, 맨 아랫줄에 본문·타겟 키워드·추가 키워드 기반으로 네이버 검색 노출 최적화 해시태그를 정확히 20개, 띄어쓰기로 구분해 한 줄로 나열.
 (예시: #{region}창업 #{category}창업 #대구상가맨 #프랜차이즈창업 #소자본창업 ...)
 """
-            show_result(get_gemini_response(prompt, API_KEY), key="bl_out")
+            show_result(get_gemini_response(prompt, API_KEY))
 
 
 # =====================================================================
@@ -710,7 +710,7 @@ def page_shortform():
 
 [규칙] 첫 3초 안에 멈추게. 멘트는 구어체로 짧게. 끝까지 보게 만드는 구성. 비용 차감 내역 언급 금지. 입력 안 한 수치 지어내기 금지.
 """
-            show_result(get_gemini_response(prompt, API_KEY), key="sf_out")
+            show_result(get_gemini_response(prompt, API_KEY))
 
 
 # =====================================================================
@@ -752,7 +752,7 @@ def page_cardnews():
 
 [규칙] 카드 한 장당 텍스트는 모바일에서 한눈에 읽히게. DM공유 유발 한 문장 포함. 비용 차감 내역 언급 금지. 없는 수치 지어내기 금지.
 """
-            show_result(get_gemini_response(prompt, API_KEY), key="cn_out")
+            show_result(get_gemini_response(prompt, API_KEY))
 
 
 # =====================================================================
@@ -797,7 +797,7 @@ def page_naver_qa():
 5) 비용 차감 세부내역(세금·4대보험) 언급 금지. 질문에 없는 매출·권리금 수치 지어내기 금지.
 6) 답변 본문 뒤 줄 바꿔 "[운영 팁]"으로 시작하는 한두 줄 — 올릴 때 주의점(맥락에 맞게 수정, 도배 금지, 홍보 시 광고 표기 권장).
 """
-            show_result(get_gemini_response(prompt, API_KEY), success_msg="✅ 답변 초안 생성 완료. 그대로 붙여넣지 말고 질문 맥락에 맞게 다듬어 올리세요.", height=520, key="nq_out")
+            show_result(get_gemini_response(prompt, API_KEY), success_msg="✅ 답변 초안 생성 완료. 그대로 붙여넣지 말고 질문 맥락에 맞게 다듬어 올리세요.", height=520)
 
 
 # =====================================================================
@@ -833,7 +833,7 @@ def page_keyword():
 
 [규칙] 권리금·양도양수·상권·창업 실패 예방 등 대구상가맨 강점과 이어지는 키워드 위주. 현실적 검색량 가진 키워드로. 비용 차감 내역 다루는 소재 제외.
 """
-            show_result(get_gemini_response(prompt, API_KEY), key="kw_out")
+            show_result(get_gemini_response(prompt, API_KEY))
 
 
 # =====================================================================
@@ -876,7 +876,7 @@ def page_youtube():
 
 [규칙] 도입 15초 안에 끝까지 보게 만들 것. 핵심 키워드를 말로도 언급(멀티모달). 비용 차감 내역 언급 금지. 입력 안 한 수치 지어내기 금지.
 """
-            show_result(get_gemini_response(prompt, API_KEY), key="yt_out")
+            show_result(get_gemini_response(prompt, API_KEY))
 
 
 # =====================================================================
@@ -925,7 +925,7 @@ def page_dashboard():
 
 비용 차감 내역 언급 금지. 허위 수치 지어내기 금지.
 """
-            show_result(get_gemini_response(prompt, API_KEY), key="db_out")
+            show_result(get_gemini_response(prompt, API_KEY))
 
 
 # =====================================================================
